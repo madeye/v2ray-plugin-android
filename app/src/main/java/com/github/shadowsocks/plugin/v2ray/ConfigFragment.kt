@@ -63,7 +63,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         putWithDefault("host", host.text, "cloudfront.com")
         putWithDefault("path", path.text, "/")
         putWithDefault("mux", mux.text, "1")
-        putWithDefault("certRaw", certRaw.text?.replace("\n", ""), "")
+        putWithDefault("certRaw", certRaw.text?.replace("\n", "\\n"), "")
         putWithDefault("loglevel", loglevel.value, "warning")
     }
 
@@ -76,7 +76,8 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         host.text = options["host"] ?: "cloudfront.com"
         path.text = options["path"] ?: "/"
         mux.text = options["mux"] ?: "1"
-        certRaw.text = options["certRaw"]
+        certRaw.text = options["certRaw"] ?: ""
+        certRaw.text = certRaw.text.replace("\\n", "\n")
         loglevel.value = options["loglevel"] ?: "warning"
     }
 
